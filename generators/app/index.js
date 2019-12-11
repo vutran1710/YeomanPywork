@@ -73,16 +73,19 @@ module.exports = class extends Generator {
     this.fs.copy(
       this.templatePath('Pipfile'),
       this.destinationPath('Pipfile'),
+      this.props,
     )
 
     this.fs.copy(
       this.templatePath('utils.py'),
       this.destinationPath('utils.py'),
+      this.props,
     )
 
     this.fs.copy(
       this.templatePath('config.ini'),
       this.destinationPath('config.ini'),
+      this.props,
     )
   }
 
