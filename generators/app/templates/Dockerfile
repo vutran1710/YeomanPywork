@@ -8,4 +8,4 @@ RUN pip install pipenv
 
 RUN pipenv install --deploy
 
-CMD pipenv run app
+CMD STAGE=production pipenv run app
