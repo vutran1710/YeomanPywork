@@ -66,6 +66,16 @@ module.exports = class extends Generator {
       self.templatePath('Pipfile'),
       self.destinationPath('Pipfile'),
     )
+
+    this.fs.copy(
+      self.templatePath('utils.py'),
+      self.destinationPath('utils.py'),
+    )
+
+    this.fs.copy(
+      self.templatePath('config.ini'),
+      self.destinationPath('config.ini'),
+    )
   }
 
   install() {

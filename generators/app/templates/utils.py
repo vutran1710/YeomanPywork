@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 class AppConfig(BaseModel):
     LOG_LEVEL: int
+    <% if (redis || aioredis) { %> REDIS_URL: str <% } %>
 
 
 def load_config() -> dict:
