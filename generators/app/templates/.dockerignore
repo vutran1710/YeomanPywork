@@ -1,3 +1,4 @@
 tests/
 .git
+.pytest_cache
 Dockefile
