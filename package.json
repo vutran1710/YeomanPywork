@@ -2,6 +2,11 @@
   "name": "generator-pywork",
   "version": "0.1.0",
   "description": "A generator that helps scaffolding a Bare-bone Python Application",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vutran1710/Pywork.git"
+  },
   "author": {
     "name": "Vu Tran",
     "email": "me@vutr.io",
@@ -13,9 +18,11 @@
   "main": "app/index.js",
   "keywords": [
     "yeoman-generator",
+    "python",
     "python-3.7",
     "pipenv",
-    "python-worker"
+    "python-worker",
+    "python-app"
   ],
   "dependencies": {
     "yeoman-generator": "^4.2.0",
