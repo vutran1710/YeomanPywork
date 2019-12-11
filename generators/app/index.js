@@ -2,11 +2,12 @@
  * Generator index
  */
 const Generator = require('yeoman-generator')
+const chalk = require('chalk')
+const yosay = require('yosay')
 
 module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts)
-    this.argument('project_name', { type: String, required: true })
   }
 
   prompting() {
@@ -15,6 +16,13 @@ module.exports = class extends Generator {
     this.log(yosay(greet))
 
     let prompts = [
+      {
+        type: 'input',
+        name: 'project_name',
+        message: 'What is your project name?',
+        default: '',
+        store: true
+      },
       {
         type: 'input',
         name: 'git_url',
@@ -63,18 +71,18 @@ module.exports = class extends Generator {
   writing() {
     // Write to template
     this.fs.copy(
-      self.templatePath('Pipfile'),
-      self.destinationPath('Pipfile'),
+      this.templatePath('Pipfile'),
+      this.destinationPath('Pipfile'),
     )
 
     this.fs.copy(
-      self.templatePath('utils.py'),
-      self.destinationPath('utils.py'),
+      this.templatePath('utils.py'),
+      this.destinationPath('utils.py'),
     )
 
     this.fs.copy(
-      self.templatePath('config.ini'),
-      self.destinationPath('config.ini'),
+      this.templatePath('config.ini'),
+      this.destinationPath('config.ini'),
     )
   }
 
