@@ -7,7 +7,20 @@ from pydantic import BaseModel
 
 class AppConfig(BaseModel):
     LOG_LEVEL: int
-    <%_ if (redis || aioredis) { _%> REDIS_URL: str <%_ } _%>
+    <%_ if (redis||aioredis) { _%>
+    REDIS_URL: str
+    <%_ } _%>
+    <%_ if (mysql) { _%>
+    MYSQL_HOST: str
+    MYSQL_USER: str
+    MYSQL_PWD: str
+    <%_ } _%>
+    <%_ if (cassandra) { _%>
+    CAS_HOST: str
+    CAS_USER: str
+    CAS_PWD: str
+    CAS_KEYSPACE: str
+    <%_ } _%>
 
 
 def load_config() -> dict:

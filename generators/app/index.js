@@ -35,26 +35,11 @@ module.exports = class extends Generator {
         name: 'deps',
         message: 'What kind of libs you want to install?',
         choices: [
-          {
-            name: 'Redis',
-            value: 'redis',
-          },
-          {
-            name: 'Asynchronous Redis',
-            value: 'aioredis',
-          },
-          {
-            name: 'MySQL',
-            value: 'pymysql',
-          },
-          {
-            name: 'Cassandra',
-            value: 'cassandra_driver',
-          },
-          {
-            name: 'FastAPI',
-            value: 'fastapi'
-          },
+          'redis',
+          'aioredis',
+          'mysql',
+          'cassandra',
+          'fastapi',
         ],
         default: [],
         store: true
@@ -70,26 +55,31 @@ module.exports = class extends Generator {
 
   writing() {
     // Write to template
-    this.fs.copy(
+    const deps = this.props.deps.reduce((depObj, item) => ({
+      ...depObj,
+      [item]: true,
+    }), {})
+
+    this.fs.copyTpl(
       this.templatePath('Pipfile'),
       this.destinationPath('Pipfile'),
-      this.props,
+      deps,
     )
 
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('utils.py'),
       this.destinationPath('utils.py'),
-      this.props,
+      deps,
     )
 
-    this.fs.copy(
+    this.fs.copyTpl(
       this.templatePath('config.ini'),
       this.destinationPath('config.ini'),
-      this.props,
+      deps,
     )
   }
 
   install() {
-    this.spawnCommand('pipenv', ['install', '--dev'])
+    // this.spawnCommand('pipenv', ['install', '--dev'])
   }
 }

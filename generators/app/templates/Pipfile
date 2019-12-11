@@ -14,11 +14,21 @@ jedi = "*"
 [packages]
 logzero = "*"
 pydantic = "*"
-<%_ if (redis) { _%> redis = "*" <%_ } _%>
-<%_ if (aioredis) { _%> aioredis = "*" <%_ } _%>
-<%_ if (pymysql) { _%> pymysql = "*" <%_ } _%>
-<%_ if (cassandra_driver) { _%> cassandra-driver = "*" <%_ } _%>
-<%_ if (fastapi) { _%> fastapi = "*" <%_ } _%>
+<%_ if (redis) { _%>
+redis = "*"
+<%_ } _%>
+<%_ if (aioredis) { _%>
+aioredis = "*"
+<%_ } _%>
+<%_ if (mysql) { _%>
+pymysql = "*"
+<%_ } _%>
+<%_ if (cassandra) { _%>
+cassandra-driver = "*"
+<%_ } _%>
+<%_ if (fastapi) { _%>
+fastapi = "*"
+<%_ } _%>
 
 [requires]
 python_version = "3.7"
