@@ -37,7 +37,7 @@ module.exports = class extends Generator {
           },
           {
             name: 'MySQL',
-            value: 'mysql',
+            value: 'pymysql',
           },
           {
             name: 'Cassandra',
@@ -54,6 +54,7 @@ module.exports = class extends Generator {
     ]
 
     return this.prompt(prompts).then(props => {
+      this.log(props)
       this.props = props
       // To access props later use this.props.someOption
     })
