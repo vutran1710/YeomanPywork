@@ -2,11 +2,24 @@
   "name": "generator-python-app",
   "version": "0.1.0",
   "description": "A generator that helps scaffolding a Bare-bone Python Application",
+  "author": {
+    "name": "Vu Tran",
+    "email": "me@vutr.io",
+    "url": "https://github.com/vutran1710"
+  },
   "files": [
     "generators"
   ],
-  "keywords": ["yeoman-generator"],
+  "main": "app/index.js",
+  "keywords": [
+    "yeoman-generator",
+    "python-3.7",
+    "pipenv",
+    "python-worker"
+  ],
   "dependencies": {
-    "yeoman-generator": "^1.0.0"
+    "yeoman-generator": "^4.2.0",
+    "chalk": "^3.0.0",
+    "yosay": "^2.0.2"
   }
 }
