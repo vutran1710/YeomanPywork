@@ -35,3 +35,8 @@ Formatting config can be changed by editting `setup.cfg`
 ### Start Coding
 
 If everything else went well, you can start coding your project.
+
+
+### Other stuffs...
+
+- The scaffolded project comes with a `Dockerfile`
