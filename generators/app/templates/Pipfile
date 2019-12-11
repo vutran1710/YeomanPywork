@@ -35,3 +35,4 @@ python_version = "3.7"
 
 [scripts]
 test = "pytest -s tests"
+app = "main.py"

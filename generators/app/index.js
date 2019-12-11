@@ -18,7 +18,7 @@ module.exports = class extends Generator {
     let prompts = [
       {
         type: 'input',
-        name: 'project_name',
+        name: 'project',
         message: 'What is your project name?',
         default: '',
         store: true
@@ -54,11 +54,24 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    // Copy static files recursively
+    this.fs.copy(
+      this.templatePath(''),
+      this.destinationPath(''),
+      { globOptions: { dot: true } },
+    )
+
     // Write to template
     const deps = this.props.deps.reduce((depObj, item) => ({
       ...depObj,
       [item]: true,
-    }), {})
+    }), {
+      redis: false,
+      aioredis: false,
+      mysql: false,
+      cassandra: false,
+      fastapi: false,
+    })
 
     this.fs.copyTpl(
       this.templatePath('Pipfile'),
@@ -76,6 +89,12 @@ module.exports = class extends Generator {
       this.templatePath('config.ini'),
       this.destinationPath('config.ini'),
       deps,
+    )
+
+    this.fs.copyTpl(
+      this.templatePath('main.py'),
+      this.destinationPath('main.py'),
+      { project: this.props.project },
     )
   }
 
