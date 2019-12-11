@@ -98,7 +98,7 @@ module.exports = class extends Generator {
     )
   }
 
-  install() {
-    // this.spawnCommand('pipenv', ['install', '--dev'])
+  async install() {
+    this.spawnCommand('pipenv', ['install', '--dev'])
   }
 }
