@@ -1,4 +1,16 @@
-`PyWork` is a [Yeoman](http://yeoman.io) generator for a basic python-worker project that basically makes use of
+<p align="center">
+  <h1>Pywork</h1><br>
+  <i>python app yeoman generator</i><br>
+  <a href="https://www.npmjs.com/package/yo">Yeoman</a> |
+  <a href="https://www.npmjs.com/package/generator-pywork">Npm Pywork</a> |
+  <a href="https://github.com/vutran1710/Pywork">Home</a>
+  <br><br>
+  <img align="center" width="170" height="170" src="https://github.com/vutran1710/Pywork/blob/master/img/pywork.png">
+</p>
+
+<br>
+
+`PyWork` is a [Yeoman](http://yeoman.io) generator for a basic python-worker project that makes use of
 [Pipenv](https://pipenv.kennethreitz.org/en/latest/), [Logzero](https://logzero.readthedocs.io/en/latest/) and [Pydantic](https://pydantic-docs.helpmanual.io/). It also includes a bunch of helpful dev-dependencies, being `jedi`, `flake8`, `pylint`, `yapf` and certainly `pytest`.
 
 
