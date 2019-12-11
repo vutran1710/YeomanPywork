@@ -41,7 +41,7 @@ module.exports = class extends Generator {
           },
           {
             name: 'Cassandra',
-            value: 'cassandra-driver',
+            value: 'cassandra_driver',
           },
           {
             name: 'FastAPI',
@@ -62,9 +62,13 @@ module.exports = class extends Generator {
 
   writing() {
     // Write to template
+    this.fs.copy(
+      self.templatePath('Pipfile'),
+      self.destinationPath('Pipfile'),
+    )
   }
 
   install() {
-    //this.installDependencies()
+    this.spawnCommand('pipenv', ['install', '--dev'])
   }
 }

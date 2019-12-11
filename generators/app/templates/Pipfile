@@ -14,6 +14,11 @@ jedi = "*"
 [packages]
 logzero = "*"
 pydantic = "*"
+<% if (redis) { %> redis = "*" <% } %>
+<% if (aioredis) { %> aioredis = "*" <% } %>
+<% if (pymysql) { %> pymysql = "*" <% } %>
+<% if (cassandra_driver) { %> cassandra-driver = "*" <% } %>
+<% if (fastapi) { %> fastapi = "*" <% } %>
 
 [requires]
 python_version = "3.7"
