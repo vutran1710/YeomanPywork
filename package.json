@@ -1,0 +1,12 @@
+{
+  "name": "generator-python-app",
+  "version": "0.1.0",
+  "description": "A generator that helps scaffolding a Bare-bone Python Application",
+  "files": [
+    "generators"
+  ],
+  "keywords": ["yeoman-generator"],
+  "dependencies": {
+    "yeoman-generator": "^1.0.0"
+  }
+}
