@@ -11,7 +11,29 @@
 <br>
 
 `PyWork` is a [Yeoman](http://yeoman.io) generator for a basic python-worker project that makes use of
-[Pipenv](https://pipenv.kennethreitz.org/en/latest/), [Logzero](https://logzero.readthedocs.io/en/latest/) and [Pydantic](https://pydantic-docs.helpmanual.io/). It also includes a bunch of helpful dev-dependencies, being `jedi`, `flake8`, `pylint`, `yapf` and certainly `pytest`.
+[Pipenv](https://pipenv.kennethreitz.org/en/latest/), [Logzero](https://logzero.readthedocs.io/en/latest/) and
+[Pydantic](https://pydantic-docs.helpmanual.io/).
+
+It includes a bunch of helpful dev-dependencies, being:
+
+- jedi
+- flake8
+- pylint
+- yapf
+- pytest
+
+...and few boilerplates for working with different databases/message broker using python clients like
+
+- Redis
+- AioRedis
+- RabbitMQ
+- Cassandra
+
+Some extra useful stuffs provided are:
+- Docker:
+  + `Dockerfile`
+  + `.dockerignore`
+
 
 
 ## Get set
@@ -51,8 +73,3 @@ Formatting config can be changed by editting `setup.cfg`
 ### Start Coding
 
 If everything else went well, you can start coding your project.
-
-
-### Other stuffs...
-
-- The scaffolded project comes with a `Dockerfile`
