@@ -29,6 +29,9 @@ pymysql = "*"
 <%_ if (cassandra) { _%>
 cassandra-driver = "*"
 <%_ } _%>
+<%_ if (requests) { _%>
+requests = "*"
+<%_ } _%>
 <%_ if (fastapi) { _%>
 fastapi = "*"
 <%_ } _%>

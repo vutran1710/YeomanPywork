@@ -40,6 +40,7 @@ module.exports = class extends Generator {
           'aioredis',
           'mysql',
           'cassandra',
+          'requests',
         ],
         default: [],
         store: true
@@ -90,6 +91,7 @@ module.exports = class extends Generator {
       aioredis: false,
       mysql: false,
       cassandra: false,
+      requests: false,
     })
 
     const frameworks = this.props.frameworks.reduce((fw, item) => ({
