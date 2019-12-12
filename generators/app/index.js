@@ -145,10 +145,16 @@ module.exports = class extends Generator {
     }
 
     if (connections.rabbitmq) {
-      this.fs.copyTpl(
+      this.fs.copy(
         this.templatePath('conn/rabbit.py'),
         this.destinationPath('conn/rabbit.py'),
-        connections,
+      )
+    }
+
+    if (connections.cassandra) {
+      this.fs.copy(
+        this.templatePath('conn/cassandra.py'),
+        this.destinationPath('conn/cassandra.py'),
       )
     }
   }
