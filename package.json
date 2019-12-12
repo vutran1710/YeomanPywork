@@ -1,6 +1,6 @@
 {
   "name": "generator-pywork",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A generator that helps scaffolding a Bare-bone Python Application",
   "license": "MIT",
   "repository": {
@@ -25,8 +25,8 @@
     "python-app"
   ],
   "dependencies": {
-    "yeoman-generator": "^4.2.0",
     "chalk": "^3.0.0",
+    "yeoman-generator": "^4.2.0",
     "yosay": "^2.0.2"
   }
 }
