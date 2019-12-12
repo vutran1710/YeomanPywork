@@ -10,6 +10,13 @@ class AppConfig(BaseModel):
     <%_ if (redis||aioredis) { _%>
     REDIS_URL: str
     <%_ } _%>
+    <%_ if (rabbitmq) { _%>
+    RB_EVENT_ROUTE: str
+    RB_QUEUE_NAME: str
+    RB_EXCHANGE_NAME: str
+    RB_ROUTING_KEY: str
+    RB_URLS: str
+    <%_ } _%>
     <%_ if (mysql) { _%>
     MYSQL_HOST: str
     MYSQL_USER: str

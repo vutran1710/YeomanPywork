@@ -143,6 +143,14 @@ module.exports = class extends Generator {
         connections,
       )
     }
+
+    if (connections.rabbitmq) {
+      this.fs.copyTpl(
+        this.templatePath('conn/rabbit.py'),
+        this.destinationPath('conn/rabbit.py'),
+        connections,
+      )
+    }
   }
 
   async install() {
