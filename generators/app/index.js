@@ -32,8 +32,8 @@ module.exports = class extends Generator {
       },
       {
         type: 'checkbox',
-        name: 'deps',
-        message: 'What kind of libs you want to install?',
+        name: 'connections',
+        message: 'What kind of connection libs you want to install?',
         choices: [
           'rabbitmq',
           'redis',
@@ -41,6 +41,19 @@ module.exports = class extends Generator {
           'mysql',
           'cassandra',
           'fastapi',
+        ],
+        default: [],
+        store: true
+      },
+      {
+        type: 'checkbox',
+        name: 'framework',
+        message: 'What kind of frameworks you want to install?',
+        choices: [
+          'fastapi',
+          // 'falcon',
+          // 'starlette',
+          // 'aiohttp',
         ],
         default: [],
         store: true
@@ -57,13 +70,19 @@ module.exports = class extends Generator {
   writing() {
     // Copy static files recursively
     this.fs.copy(
-      this.templatePath(''),
-      this.destinationPath(''),
+      this.templatePath('app'),
+      this.destinationPath('app'),
+      { globOptions: { dot: true } },
+    )
+
+    this.fs.copy(
+      this.templatePath('tests'),
+      this.destinationPath('tests'),
       { globOptions: { dot: true } },
     )
 
     // Write to template
-    const deps = this.props.deps.reduce((depObj, item) => ({
+    const connections = this.props.connections.reduce((depObj, item) => ({
       ...depObj,
       [item]: true,
     }), {
@@ -72,25 +91,24 @@ module.exports = class extends Generator {
       aioredis: false,
       mysql: false,
       cassandra: false,
-      fastapi: false,
     })
 
     this.fs.copyTpl(
       this.templatePath('Pipfile'),
       this.destinationPath('Pipfile'),
-      deps,
+      connections,
     )
 
     this.fs.copyTpl(
       this.templatePath('utils.py'),
       this.destinationPath('utils.py'),
-      deps,
+      connections,
     )
 
     this.fs.copyTpl(
       this.templatePath('config.ini'),
       this.destinationPath('config.ini'),
-      deps,
+      connections,
     )
 
     this.fs.copyTpl(
@@ -98,6 +116,22 @@ module.exports = class extends Generator {
       this.destinationPath('main.py'),
       { project: this.props.project },
     )
+
+    // Conditional modules...
+    if (this.props.connections.length > 0) {
+      this.fs.copy(
+        this.templatePath('conn/__init__.py'),
+        this.destinationPath('conn/__init__.py'),
+      )
+    }
+
+    if (connections.redis || connections.aioredis) {
+      this.fs.copyTpl(
+        this.templatePath('conn/redis.py'),
+        this.destinationPath('conn/redis.py'),
+        connections,
+      )
+    }
   }
 
   async install() {
