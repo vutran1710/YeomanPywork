@@ -35,6 +35,7 @@ module.exports = class extends Generator {
         name: 'deps',
         message: 'What kind of libs you want to install?',
         choices: [
+          'rabbitmq',
           'redis',
           'aioredis',
           'mysql',
@@ -66,6 +67,7 @@ module.exports = class extends Generator {
       ...depObj,
       [item]: true,
     }), {
+      rabbitmq: false,
       redis: false,
       aioredis: false,
       mysql: false,
