@@ -40,14 +40,13 @@ module.exports = class extends Generator {
           'aioredis',
           'mysql',
           'cassandra',
-          'fastapi',
         ],
         default: [],
         store: true
       },
       {
         type: 'checkbox',
-        name: 'framework',
+        name: 'frameworks',
         message: 'What kind of frameworks you want to install?',
         choices: [
           'fastapi',
@@ -93,22 +92,34 @@ module.exports = class extends Generator {
       cassandra: false,
     })
 
+    const frameworks = this.props.frameworks.reduce((fw, item) => ({
+      ...fw,
+      [item]: true,
+    }), {
+      fastapi: false,
+    })
+
+    const deps = {
+      ...connections,
+      ...frameworks,
+    }
+
     this.fs.copyTpl(
       this.templatePath('Pipfile'),
       this.destinationPath('Pipfile'),
-      connections,
+      deps,
     )
 
     this.fs.copyTpl(
       this.templatePath('utils.py'),
       this.destinationPath('utils.py'),
-      connections,
+      deps,
     )
 
     this.fs.copyTpl(
       this.templatePath('config.ini'),
       this.destinationPath('config.ini'),
-      connections,
+      deps,
     )
 
     this.fs.copyTpl(
@@ -120,7 +131,7 @@ module.exports = class extends Generator {
     // Conditional modules...
     if (this.props.connections.length > 0) {
       this.fs.copy(
-        this.templatePath('conn/__init__.py'),
+        this.templatePath('conn/init.py'),
         this.destinationPath('conn/__init__.py'),
       )
     }
