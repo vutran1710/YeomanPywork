@@ -159,6 +159,13 @@ module.exports = class extends Generator {
         this.destinationPath('conn/cassandra.py'),
       )
     }
+
+    if (connections.mysql) {
+      this.fs.copy(
+        this.templatePath('conn/mysql.py'),
+        this.destinationPath('conn/mysql.py'),
+      )
+    }
   }
 
   async install() {
