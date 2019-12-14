@@ -45,19 +45,19 @@ module.exports = class extends Generator {
         default: [],
         store: true
       },
-      {
-        type: 'checkbox',
-        name: 'frameworks',
-        message: 'What kind of frameworks you want to install?',
-        choices: [
-          'fastapi',
-          // 'falcon',
-          // 'starlette',
-          // 'aiohttp',
-        ],
-        default: [],
-        store: true
-      },
+      /* {
+       *   type: 'checkbox',
+       *   name: 'frameworks',
+       *   message: 'What kind of frameworks you want to install?',
+       *   choices: [
+       *     'fastapi',
+       *     // 'falcon',
+       *     // 'starlette',
+       *     // 'aiohttp',
+       *   ],
+       *   default: [],
+       *   store: true
+       * }, */
     ]
 
     return this.prompt(prompts).then(props => {
