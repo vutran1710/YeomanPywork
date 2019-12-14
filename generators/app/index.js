@@ -71,7 +71,9 @@ module.exports = class extends Generator {
     // Copy static files recursively
     this.fs.copy(
       this.templatePath('app'),
-      this.destinationPath('app'),
+      this.destinationPath(
+        this.props.frameworks.length > 0 ? 'modules' : 'app'
+      ),
       { globOptions: { dot: true } },
     )
 
