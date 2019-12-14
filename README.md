@@ -28,6 +28,12 @@ It includes a bunch of helpful dev-dependencies, being:
 - AioRedis
 - RabbitMQ
 - Cassandra
+- MySQL
+
+It supports framework-based application templates for frameworks like:
+- [FastApi](https://fastapi.tiangolo.com/)
+
+and more to come...
 
 Some extra useful stuffs provided are:
 - Docker:
