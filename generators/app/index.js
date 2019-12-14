@@ -45,19 +45,19 @@ module.exports = class extends Generator {
         default: [],
         store: true
       },
-      /* {
-       *   type: 'checkbox',
-       *   name: 'frameworks',
-       *   message: 'What kind of frameworks you want to install?',
-       *   choices: [
-       *     'fastapi',
-       *     // 'falcon',
-       *     // 'starlette',
-       *     // 'aiohttp',
-       *   ],
-       *   default: [],
-       *   store: true
-       * }, */
+      {
+        type: 'checkbox',
+        name: 'frameworks',
+        message: 'What kind of framework you want to install?',
+        choices: [
+          'fastapi',
+          // 'falcon',
+          // 'starlette',
+          // 'aiohttp',
+        ],
+        default: [],
+        store: true
+      },
     ]
 
     return this.prompt(prompts).then(props => {
@@ -127,7 +127,10 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('main.py'),
       this.destinationPath('main.py'),
-      { project: this.props.project },
+      {
+        ...deps,
+        project: this.props.project,
+      }
     )
 
     // Conditional modules...
@@ -164,6 +167,13 @@ module.exports = class extends Generator {
       this.fs.copy(
         this.templatePath('conn/mysql.py'),
         this.destinationPath('conn/mysql.py'),
+      )
+    }
+
+    if (frameworks.fastapi) {
+      this.fs.copy(
+        this.templatePath('fastapi'),
+        this.destinationPath(''),
       )
     }
   }

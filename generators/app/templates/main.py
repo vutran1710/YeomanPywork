@@ -1,3 +1,25 @@
+<%_ if (fastapi) { _%>
+"""Initialization fastapi application
+"""
+from fastapi import FastAPI, Depends
+from middlewares import connections, internal_only
+from apis import demo
+
+app = FastAPI()
+
+app.middleware("http")(connections)
+
+app.include_router(
+    demo.router,
+    prefix="/thing",
+    tags=["Thing"],
+    dependencies=[Depends(internal_only)],
+    responses={404: {
+        "message": "Not found"
+    }},
+)
+
+<%_ } else { _%>
 from logzero import logger
 from utils import load_config
 
@@ -15,3 +37,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+<%_ } _%>
