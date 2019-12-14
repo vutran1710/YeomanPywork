@@ -1,6 +1,6 @@
 {
   "name": "generator-pywork",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A generator that helps scaffolding a Bare-bone Python Application, with some templates for RabbitMQ/Redis/aioredis/Cassandra/MySQL",
   "license": "MIT",
   "repository": {
