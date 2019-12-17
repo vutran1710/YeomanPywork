@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from models import SomePayload
 from middlewares import deps
-from conn import Redis as RedisClient
+from conn.redis import RedisClient
 
 router = APIRouter()
 

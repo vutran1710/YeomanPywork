@@ -5,7 +5,7 @@
   <a href="https://www.npmjs.com/package/generator-pywork">Npm Pywork</a> |
   <a href="https://github.com/vutran1710/Pywork">Home</a>
   <br><br>
-  <img align="center" width="170" height="170" src="https://github.com/vutran1710/Pywork/blob/master/img/pywork.png">
+  <img align="center" width="170" height="170" src="https://raw.githubusercontent.com/vutran1710/YeomanPywork/master/img/pywork.png">
 </p>
 
 <br>

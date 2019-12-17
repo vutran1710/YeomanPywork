@@ -21,7 +21,7 @@ class CasConfig(BaseModel):
     CAS_KEYSPACE: str
 
 
-class CassandraConnection:
+class CassandraClient:
     def __init__(self, config: CasConfig):
         self.cfg = config
 
