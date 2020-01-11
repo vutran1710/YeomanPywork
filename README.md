@@ -29,6 +29,7 @@ It includes a bunch of helpful dev-dependencies, being:
 - RabbitMQ
 - Cassandra
 - MySQL
+- PostgreSQL
 
 It supports framework-based application templates for frameworks like:
 - [FastApi](https://fastapi.tiangolo.com/)
