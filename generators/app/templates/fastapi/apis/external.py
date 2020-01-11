@@ -24,7 +24,7 @@ def login_access_token(
     """
     return {
         "access_token": Token().create_access_token(
-            data={"user_id": 1, "email": email}
+            data={"user_id": 1}
         ),
         "token_type": "bearer",
     }

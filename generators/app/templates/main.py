@@ -13,7 +13,7 @@ app.include_router(
     demo.router,
     prefix="/thing",
     tags=["Thing"],
-    dependencies=[Depends(internal_only), Depends(authenticate_user)],
+    dependencies=[Depends(internal_only)],
     responses={404: {
         "message": "Not found"
     }},

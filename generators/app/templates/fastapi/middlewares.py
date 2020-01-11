@@ -35,7 +35,6 @@ def authenticate_user(
         )
 
 
-
 async def connections(request: Request, call_next):
     """Bootstrapping every request with
     connection services
