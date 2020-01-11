@@ -24,7 +24,7 @@ class PostgresqlClient:
 
         self.conn = conn
 
-    def query_something(self, limit):
+    def query_something(self, limit: int):
         with self.conn.cursor() as cursor:
             q = """
             SELECT post_id FROM some_table ORDER BY created_at DESC LIMIT %s
