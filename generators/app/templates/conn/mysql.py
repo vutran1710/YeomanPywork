@@ -24,7 +24,7 @@ class MySqlClient:
 
         self.conn = conn
 
-    def query_something(self):
+    def query_something(self, limit):
         with self.conn.cursor() as cursor:
             q = """
             SELECT post_id FROM tbl_post_best ORDER BY created_at DESC LIMIT %s

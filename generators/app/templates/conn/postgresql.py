@@ -1,4 +1,4 @@
-from psycopg2 import connect, cursors
+from psycopg2 import connect
 from pydantic import BaseModel
 
 
@@ -24,10 +24,10 @@ class PostgresqlClient:
 
         self.conn = conn
 
-    def query_something(self):
+    def query_something(self, limit):
         with self.conn.cursor() as cursor:
             q = """
-            SELECT post_id FROM tbl_post_best ORDER BY created_at DESC LIMIT %s
+            SELECT post_id FROM some_table ORDER BY created_at DESC LIMIT %s
             """
             cursor.execute(q, (limit, ))
             result = cursor.fetchall()
