@@ -8,3 +8,8 @@ class SomePayload(BaseModel):
 
 class TokenPayload(BaseModel):
     user_id: int = None
+
+
+class TokenModel(BaseModel):
+    access_token: str
+    token_type: str

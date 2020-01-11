@@ -28,11 +28,12 @@ def authenticate_user(
     try:
         payload = jwt.decode(token, CONFIG['SECRET_KEY'], algorithms=["HS256"])
         token_data = TokenPayload(**payload)
+        return token_data
     except jwt.PyJWTError:
         raise HTTPException(
             status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
         )
-    return token_data
+
 
 
 async def connections(request: Request, call_next):
@@ -42,6 +43,7 @@ async def connections(request: Request, call_next):
     conn = {
         'redis': 'redis-class',
         'cass': 'cassandra-class',
+        'postgesql': 'postgesql-class'
     }
 
     request.state.conn = conn

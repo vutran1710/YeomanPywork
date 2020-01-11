@@ -3,7 +3,7 @@
 """
 from fastapi import FastAPI, Depends
 from middlewares import connections, internal_only, authenticate_user
-from apis import demo
+from apis import demo, external
 
 app = FastAPI()
 
@@ -14,6 +14,16 @@ app.include_router(
     prefix="/thing",
     tags=["Thing"],
     dependencies=[Depends(internal_only), Depends(authenticate_user)],
+    responses={404: {
+        "message": "Not found"
+    }},
+)
+
+app.include_router(
+    demo.external,
+    prefix="/user",
+    tags=["User"],
+    dependencies=[Depends(authenticate_user)],
     responses={404: {
         "message": "Not found"
     }},
