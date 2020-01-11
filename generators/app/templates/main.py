@@ -2,7 +2,7 @@
 """Initialization fastapi application
 """
 from fastapi import FastAPI, Depends
-from middlewares import connections, internal_only
+from middlewares import connections, internal_only, authenticate_user
 from apis import demo
 
 app = FastAPI()
@@ -13,7 +13,7 @@ app.include_router(
     demo.router,
     prefix="/thing",
     tags=["Thing"],
-    dependencies=[Depends(internal_only)],
+    dependencies=[Depends(internal_only), Depends(authenticate_user)],
     responses={404: {
         "message": "Not found"
     }},
