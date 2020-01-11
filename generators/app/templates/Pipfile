@@ -39,6 +39,7 @@ requests = "*"
 fastapi = "*"
 pyjwt = "*"
 uvicorn = "*"
+python-multipart = "*"
 <%_ } _%>
 
 [requires]

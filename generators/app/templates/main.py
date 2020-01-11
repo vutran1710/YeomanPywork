@@ -3,7 +3,7 @@
 """
 from fastapi import FastAPI, Depends
 from middlewares import connections, internal_only, authenticate_user
-from apis import demo, external
+from apis import demo, login, user
 
 app = FastAPI()
 
@@ -20,7 +20,16 @@ app.include_router(
 )
 
 app.include_router(
-    demo.external,
+    login.router,
+    prefix="/authenticate",
+    tags=["User"],
+    responses={404: {
+        "message": "Not found"
+    }},
+)
+
+app.include_router(
+    user.router,
     prefix="/user",
     tags=["User"],
     dependencies=[Depends(authenticate_user)],
@@ -28,7 +37,6 @@ app.include_router(
         "message": "Not found"
     }},
 )
-
 <%_ } else { _%>
 from logzero import logger
 from utils import load_config

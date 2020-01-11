@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 class AppConfig(BaseModel):
     LOG_LEVEL: int
+    SECRET_KEY: str
     <%_ if (redis||aioredis) { _%>
     REDIS_URL: str
     <%_ } _%>

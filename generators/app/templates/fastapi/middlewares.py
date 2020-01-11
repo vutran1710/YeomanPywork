@@ -18,7 +18,7 @@ def internal_only(internal_header: str = Header(None)):
 
 
 # authentication
-reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/user/login/access-token")
+reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/authenticate/login/access-token")
 # need to write api with URL '/user/login/access-token' which return a token.
 
 
