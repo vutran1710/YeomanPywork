@@ -26,6 +26,9 @@ aioredis = "*"
 <%_ if (mysql) { _%>
 pymysql = "*"
 <%_ } _%>
+<%_ if (postgresql) { _%>
+psycopg2-binary = "*"
+<%_ } _%>
 <%_ if (cassandra) { _%>
 cassandra-driver = "*"
 <%_ } _%>
@@ -34,7 +37,9 @@ requests = "*"
 <%_ } _%>
 <%_ if (fastapi) { _%>
 fastapi = "*"
+pyjwt = "*"
 uvicorn = "*"
+python-multipart = "*"
 <%_ } _%>
 
 [requires]

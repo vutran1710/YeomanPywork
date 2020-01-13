@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 class AppConfig(BaseModel):
     LOG_LEVEL: int
+    SECRET_KEY: str
     <%_ if (redis||aioredis) { _%>
     REDIS_URL: str
     <%_ } _%>
@@ -21,6 +22,13 @@ class AppConfig(BaseModel):
     MYSQL_HOST: str
     MYSQL_USER: str
     MYSQL_PWD: str
+    <%_ } _%>
+    <%_ if (postgresql) { _%>
+    POSTGRESQL_HOST: str
+    POSTGRESQL_PORT: str
+    POSTGRESQL_USER: str
+    POSTGRESQL_PWD: str
+    POSTGRESQL_DB: str
     <%_ } _%>
     <%_ if (cassandra) { _%>
     CAS_HOST: str

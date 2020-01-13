@@ -39,6 +39,7 @@ module.exports = class extends Generator {
           'redis',
           'aioredis',
           'mysql',
+          'postgresql',
           'cassandra',
           'requests',
         ],
@@ -92,6 +93,7 @@ module.exports = class extends Generator {
       redis: false,
       aioredis: false,
       mysql: false,
+      postgresql: false,
       cassandra: false,
       requests: false,
     })
@@ -169,6 +171,13 @@ module.exports = class extends Generator {
       this.fs.copy(
         this.templatePath('conn/mysql.py'),
         this.destinationPath('conn/mysql.py'),
+      )
+    }
+
+    if (connections.postgresql) {
+      this.fs.copy(
+        this.templatePath('conn/postgresql.py'),
+        this.destinationPath('conn/postgresql.py'),
       )
     }
 
