@@ -40,9 +40,9 @@ async def connections(request: Request, call_next):
     connection services
     """
     conn = {
-        'redis': 'redis-class',
-        'cass': 'cassandra-class',
-        'postgesql': 'postgesql-class'
+        'redis': 'redis-class-instance',
+        'cass': 'cassandra-class-instance',
+        'postgesql': 'postgesql-class-instance'
     }
 
     request.state.conn = conn
@@ -52,8 +52,5 @@ async def connections(request: Request, call_next):
     return response
 
 
-def get_deps(request: Request):
+def get_conn(request: Request):
     return request.state.conn
-
-
-deps = Depends(get_deps)
