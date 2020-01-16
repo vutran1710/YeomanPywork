@@ -6,15 +6,15 @@ from starlette.status import HTTP_403_FORBIDDEN
 from starlette.requests import Request
 from utils import CONFIG
 from logzero import logger
+<%_ if (jwt) { _%>
 from models import TokenPayload
+<%_ } _%>
 
 
 def internal_only(internal_header: str = Header(None)):
     logger.info("ROLE = %s", internal_header)
     if internal_header != 'service':
         raise HTTPException(HTTP_403_FORBIDDEN, detail="Access denied")
-
-
 <%_ if (jwt) { _%>
 # authentication
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/authenticate/login/access-token")

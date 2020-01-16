@@ -2,7 +2,7 @@
 """Initialization fastapi application
 """
 from fastapi import FastAPI, Depends
-from middlewares import connections, internal_only, authenticate_user
+from middlewares import connections, internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } _%>
 from apis import demo<%_ if (jwt) { _%>, login, user<%_ } _%>
 
 app = FastAPI()

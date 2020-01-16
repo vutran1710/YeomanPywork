@@ -37,11 +37,12 @@ requests = "*"
 <%_ } _%>
 <%_ if (fastapi) { _%>
 fastapi = "*"
-pyjwt = "*"
 uvicorn = "*"
 python-multipart = "*"
 <%_ } _%>
-
+<%_ if (jwt) { _%>
+pyjwt = "*"
+<%_ } _%>
 [requires]
 python_version = "3.7"
 

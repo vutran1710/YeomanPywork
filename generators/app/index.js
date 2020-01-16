@@ -59,6 +59,16 @@ module.exports = class extends Generator {
         default: [],
         store: true
       },
+      {
+        type: 'checkbox',
+        name: 'extras',
+        message: 'What kind of extras you want to install?',
+        choices: [
+          'jwt',
+        ],
+        default: [],
+        store: true
+      },
     ]
 
     return this.prompt(prompts).then(props => {
@@ -190,11 +200,21 @@ module.exports = class extends Generator {
     }
 
     if (frameworks.fastapi) {
-      this.fs.copy(
-        this.templatePath('fastapi'),
-        this.destinationPath(''),
-        extras,
-      )
+      if (extras.jwt) {
+        this.fs.copy(
+          this.templatePath('fastapi'),
+          this.destinationPath(''),
+        )
+      } else {
+        this.fs.copy(
+          this.templatePath('fastapi'),
+          this.destinationPath(''),
+          {
+            globOptions:
+            {ignore: ['fastapi/apis/login.py', 'fastapi/apis/user.py', 'fastapi/jwt.py'] }
+          }
+        )
+      }
     }
   }
 
