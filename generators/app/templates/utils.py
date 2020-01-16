@@ -1,6 +1,6 @@
 from os import environ
 from logzero import logger, loglevel
-from configparser import ConfigParser
+from configparser import SafeConfigParser
 from typing import Callable
 from pydantic import BaseModel
 
@@ -41,7 +41,7 @@ class AppConfig(BaseModel):
 def load_config() -> dict:
     config = {}
     stage = environ.get('STAGE', 'DEVELOPMENT').upper()
-    parser = ConfigParser()
+    parser = SafeConfigParser()
     parser.read('config.ini')
 
     for k, v in parser.items(stage):
@@ -77,3 +77,6 @@ def shouterr(message: str):
         return wrapped
 
     return decorator
+
+
+CONFIG = load_config()

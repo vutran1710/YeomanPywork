@@ -105,9 +105,17 @@ module.exports = class extends Generator {
       fastapi: false,
     })
 
+    const extras = this.props.extras.reduce((extr, item) => ({
+      ...extr,
+      [item]: true
+    }), {
+      jwt: false
+    })
+
     const deps = {
       ...connections,
       ...frameworks,
+      ...extras
     }
 
     this.fs.copyTpl(
@@ -185,6 +193,7 @@ module.exports = class extends Generator {
       this.fs.copy(
         this.templatePath('fastapi'),
         this.destinationPath(''),
+        extras,
       )
     }
   }

@@ -4,11 +4,9 @@ from fastapi import Depends, HTTPException, Header, Security
 from fastapi.security import OAuth2PasswordBearer
 from starlette.status import HTTP_403_FORBIDDEN
 from starlette.requests import Request
-from utils import load_config
+from utils import CONFIG
 from logzero import logger
 from models import TokenPayload
-
-CONFIG = load_config()
 
 
 def internal_only(internal_header: str = Header(None)):
@@ -17,6 +15,7 @@ def internal_only(internal_header: str = Header(None)):
         raise HTTPException(HTTP_403_FORBIDDEN, detail="Access denied")
 
 
+<%_ if (jwt) { _%>
 # authentication
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/authenticate/login/access-token")
 # need to write api with URL '/user/login/access-token' which return a token.
@@ -25,6 +24,7 @@ reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/authenticate/login/access-toke
 def authenticate_user(
     token: str = Security(reusable_oauth2)
 ):
+
     try:
         payload = jwt.decode(token, CONFIG['SECRET_KEY'], algorithms=["HS256"])
         token_data = TokenPayload(**payload)
@@ -33,6 +33,7 @@ def authenticate_user(
         raise HTTPException(
             status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
         )
+<%_ } _%>
 
 
 async def connections(request: Request, call_next):
