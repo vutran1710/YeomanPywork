@@ -22,6 +22,7 @@ class AppConfig(BaseModel):
     MYSQL_HOST: str
     MYSQL_USER: str
     MYSQL_PWD: str
+    MYSQL_DB: str
     <%_ } _%>
     <%_ if (postgresql) { _%>
     POSTGRESQL_HOST: str

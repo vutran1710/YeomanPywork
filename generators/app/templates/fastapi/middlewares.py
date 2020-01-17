@@ -40,16 +40,10 @@ def authenticate_user(
 <%_ } _%>
 
 
-async def connections(request: Request, call_next):
+async def connections(conn: dict, request: Request, call_next):
     """Bootstrapping every request with
     connection services
     """
-    conn = {
-        'redis': 'redis-class',
-        'cass': 'cassandra-class',
-        'postgesql': 'postgesql-class'
-    }
-
     request.state.conn = conn
     request.state.config = CONFIG
 

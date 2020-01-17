@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from models import TokenModel
 from middlewares import deps
-from jwt import Token
+from jwt_token import Token
 
 router = APIRouter()
 
