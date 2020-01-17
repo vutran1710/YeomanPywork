@@ -58,14 +58,12 @@ class RabbitClient:
                     break
             except pika.exceptions.ConnectionClosedByBroker:
                 sleep = random.randint(1, 5)
-                log.info("Connection was closed by broker, retrying... in %ss",
-                         sleep)
+                log.info("Connection was closed by broker, retrying... in %ss", sleep)
                 time.sleep(sleep)
                 continue
             # Do not recover on channel errors
             except pika.exceptions.AMQPChannelError as err:
-                log.error("Caught a channel error: {}, stopping..."
-                          .format(err))
+                log.error("Caught a channel error: {}, stopping...".format(err))
                 break
             # Recover on all other connection errors
             except pika.exceptions.AMQPConnectionError:

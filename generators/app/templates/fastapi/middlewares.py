@@ -18,6 +18,8 @@ def internal_only(internal_header: str = Header(None)):
     if internal_header != 'service':
         raise HTTPException(HTTP_403_FORBIDDEN, detail="Access denied")
 <%_ if (jwt) { _%>
+
+
 # authentication
 reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/authenticate/login/access-token")
 # need to write api with URL '/user/login/access-token' which return a token.
