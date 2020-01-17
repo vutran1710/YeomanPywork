@@ -43,6 +43,9 @@ python-multipart = "*"
 <%_ if (jwt) { _%>
 pyjwt = "*"
 <%_ } _%>
+<%_ if (httpx) { _%>
+httpx = "*"
+<%_ } _%>
 [requires]
 python_version = "3.7"
 

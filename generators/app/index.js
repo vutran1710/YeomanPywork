@@ -42,6 +42,7 @@ module.exports = class extends Generator {
           'postgresql',
           'cassandra',
           'requests',
+          'httpx'
         ],
         default: [],
         store: true
@@ -106,6 +107,7 @@ module.exports = class extends Generator {
       postgresql: false,
       cassandra: false,
       requests: false,
+      httpx: false,
     })
 
     const frameworks = this.props.frameworks.reduce((fw, item) => ({
