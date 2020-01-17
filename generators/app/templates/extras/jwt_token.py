@@ -8,6 +8,8 @@ class Token:
     access_token_jwt_subject = "access"
 
     def create_access_token(self, *, data: dict, expires_delta: timedelta = None):
+        """create a json token with the data as a dict
+        """
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta

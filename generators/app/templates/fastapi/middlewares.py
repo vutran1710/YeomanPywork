@@ -28,7 +28,9 @@ reusable_oauth2 = OAuth2PasswordBearer(tokenUrl="/authenticate/login/access-toke
 def authenticate_user(
     token: str = Security(reusable_oauth2)
 ):
-
+    """
+    take, decode a token string and return the token data
+    """
     try:
         payload = jwt.decode(token, CONFIG['SECRET_KEY'], algorithms=["HS256"])
         token_data = TokenPayload(**payload)
