@@ -56,8 +56,5 @@ def connect(config, conn: dict):
     return connections
 
 
-def get_deps(request: Request):
+def get_conn(request: Request):
     return request.state.conn
-
-
-deps = Depends(get_deps)
