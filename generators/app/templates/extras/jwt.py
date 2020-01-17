@@ -1,4 +1,3 @@
-<%_ if (jwt) { _%>
 import jwt
 from datetime import datetime, timedelta
 
@@ -17,4 +16,3 @@ class Token:
         to_encode.update({"exp": expire, "sub": self.access_token_jwt_subject})
         encoded_jwt = jwt.encode(to_encode, CONFIG['SECRET_KEY'], algorithm="HS256")
         return encoded_jwt
-<%_ } _%>

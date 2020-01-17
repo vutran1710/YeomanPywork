@@ -200,21 +200,21 @@ module.exports = class extends Generator {
     }
 
     if (frameworks.fastapi) {
-      if (extras.jwt) {
-        this.fs.copy(
-          this.templatePath('fastapi'),
-          this.destinationPath(''),
-        )
-      } else {
-        this.fs.copy(
-          this.templatePath('fastapi'),
-          this.destinationPath(''),
-          {
-            globOptions:
-            {ignore: ['fastapi/apis/login.py', 'fastapi/apis/user.py', 'fastapi/jwt.py'] }
-          }
-        )
-      }
+      this.fs.copyTpl(
+        this.templatePath('fastapi'),
+        this.destinationPath(''),
+      )
+    }
+
+    if (extras.jwt) {
+      this.fs.copy(
+        this.templatePath('extras/apis'),
+        this.destinationPath('/apis'),
+      )
+      this.fs.copy(
+        this.templatePath('extras/jwt.py'),
+        this.destinationPath('')
+      )
     }
   }
 

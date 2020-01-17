@@ -1,4 +1,3 @@
-<%_ if (jwt) { _%>
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
@@ -27,4 +26,3 @@ def login(
         ),
         "token_type": "bearer",
     }
-<%_ } _%>

@@ -1,4 +1,3 @@
-<%_ if (jwt) { _%>
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
@@ -16,4 +15,3 @@ def get_products():
     return {
         "product": ["iphone", "apple watch", "macbook"]
     }
-<%_ } _%>
