@@ -203,6 +203,7 @@ module.exports = class extends Generator {
       this.fs.copyTpl(
         this.templatePath('fastapi'),
         this.destinationPath(''),
+        extras
       )
     }
 
