@@ -40,15 +40,18 @@ def authenticate_user(
 <%_ } _%>
 
 
-async def connections(conn: dict, request: Request, call_next):
-    """Bootstrapping every request with
-    connection services
-    """
-    request.state.conn = conn
-    request.state.config = CONFIG
+def connect(config, conn: dict):
+    async def connections(request: Request, call_next):
+        """Bootstrapping every request with
+        connection services
+        """
+        request.state.conn = conn
+        request.state.config = config
 
-    response = await call_next(request)
-    return response
+        response = await call_next(request)
+        return response
+
+    return connections
 
 
 def get_deps(request: Request):

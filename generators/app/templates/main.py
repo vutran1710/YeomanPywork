@@ -2,7 +2,7 @@
 """Initialization fastapi application
 """
 from fastapi import FastAPI, Depends
-from middlewares import connections, internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } _%>
+from middlewares import connect, internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } _%>
 
 from apis import demo<%_ if (jwt) { _%>, login, user<%_ } _%>
 
@@ -28,43 +28,27 @@ from conn.rabbit import RabbitClient
 app = FastAPI()
 conn = {}
 
-<%_ if (mysql) {_%>
 
 @app.on_event("startup")
-async def startup_mysql():
+async def init_conns():
+    <%_ if (mysql) {_%>
     conn["mysql"] = MySqlClient(CONFIG)
-
-<%_ } _%>
-<%_ if (postgresql) {_%>
-
-@app.on_event("startup")
-async def startup_postgresql():
+    <%_ } _%>
+    <%_ if (postgresql) {_%>
     conn["postgresql"] = PostgresqlClient(CONFIG)
-
-<%_ } _%>
-<%_ if (redis || aioredis) {_%>
-
-@app.on_event("startup")
-async def startup_redis():
+    <%_ } _%>
+    <%_ if (redis || aioredis) {_%>
     conn["redis"] = RedisClient(CONFIG)
-
-<%_ } _%>
-<%_ if (cassandra) {_%>
-
-@app.on_event("startup")
-async def startup_cassandra():
+    <%_ } _%>
+    <%_ if (cassandra) {_%>
     conn["cassandra"] = CassandraClient(CONFIG)
-
-<%_ } _%>
-<%_ if (rabbitmq) {_%>
-
-@app.on_event("startup")
-async def startup_rabbitmq():
+    <%_ } _%>
+    <%_ if (rabbitmq) {_%>
     conn["rabbitmq"] = RabbitClient(CONFIG)
+    <%_ } _%>
 
-<%_ } _%>
 
-app.middleware("http")(connections)(conn)
+app.middleware("http")(connect(CONFIG, conn))
 
 app.include_router(
     demo.router,
