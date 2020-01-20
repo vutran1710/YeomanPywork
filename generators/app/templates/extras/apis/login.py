@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
 from models import TokenModel
-from middlewares import deps
 from jwt_token import Token
 
 router = APIRouter()
@@ -10,7 +9,7 @@ router = APIRouter()
 
 @router.post("/login/access-token", response_model=TokenModel)
 def login(
-    deps=deps, form_data: OAuth2PasswordRequestForm = Depends()
+    form_data: OAuth2PasswordRequestForm = Depends()
 ):
     """
     OAuth2 compatible token login, get an access token for future requests

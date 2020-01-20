@@ -2,7 +2,7 @@
 """Initialization fastapi application
 """
 from fastapi import FastAPI, Depends
-from middlewares import connect, internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } _%>
+from middlewares import internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } _%>
 
 from apis import demo<%_ if (jwt) { _%>, login, user<%_ } _%>
 
@@ -49,8 +49,6 @@ async def init_conns():
     conn["rabbitmq"] = RabbitClient(CONFIG)
     <%_ } _%>
 
-
-app.middleware("http")(connect(CONFIG, conn))
 
 app.include_router(
     demo.router,
