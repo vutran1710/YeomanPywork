@@ -1,6 +1,8 @@
 from pymysql import connect, cursors
 from pydantic import BaseModel
 
+from decorator import singleton
+
 
 class MySqlConfig(BaseModel):
     MYSQL_HOST: str
@@ -9,6 +11,7 @@ class MySqlConfig(BaseModel):
     MYSQL_DB: str
 
 
+@singleton
 class MySqlClient:
     """MySqlClient
     """

@@ -40,21 +40,3 @@ def authenticate_user(
             status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
         )
 <%_ } _%>
-
-
-def connect(config, conn: dict):
-    async def connections(request: Request, call_next):
-        """Bootstrapping every request with
-        connection services
-        """
-        request.state.conn = conn
-        request.state.config = config
-
-        response = await call_next(request)
-        return response
-
-    return connections
-
-
-def get_conn(request: Request):
-    return request.state.conn

@@ -26,13 +26,13 @@ from conn.rabbit import RabbitClient
 <%_ } _%>
 
 app = FastAPI()
-conn = {}
 
 
 @app.on_event("startup")
 async def init_conns():
     """Init external connections & middlewares
     """
+    conn = {}
     <%_ if (mysql) {_%>
     conn["mysql"] = MySqlClient(CONFIG)
     <%_ } _%>

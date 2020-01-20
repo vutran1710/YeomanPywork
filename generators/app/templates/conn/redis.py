@@ -2,6 +2,8 @@
 from redis import Redis
 from pydantic import BaseModel
 
+from decorator import singleton
+
 
 class RedisConfig(BaseModel):
     REDIS_URL: str
@@ -11,6 +13,7 @@ class SampleParam(BaseModel):
     something: int
 
 
+@singleton
 class RedisClient:
     """Synchronous Redis Client
     """
@@ -29,6 +32,8 @@ class RedisClient:
 from typing import Union
 from pydantic import BaseModel
 
+from decorator import singleton
+
 
 class SampleParam(BaseModel):
     something: str
@@ -36,6 +41,7 @@ class SampleParam(BaseModel):
     some_value: int
 
 
+@singleton
 class RedisClient:
     """Asynchronous Redis Client
     """

@@ -5,6 +5,8 @@ import time
 from logzero import logger as log
 from pydantic import BaseModel
 
+from decorator import singleton
+
 
 class RabbitConfig(BaseModel):
     RB_EVENT_ROUTE: str
@@ -14,6 +16,7 @@ class RabbitConfig(BaseModel):
     RB_URLS: str
 
 
+@singleton
 class RabbitClient:
     def __init__(self, config: RabbitConfig):
         self.cfg = config
