@@ -1,6 +1,8 @@
 from psycopg2 import connect
 from pydantic import BaseModel
 
+from decorator import singleton
+
 
 class PostgresqlConfig(BaseModel):
     POSTGRESQL_HOST: str
@@ -10,6 +12,7 @@ class PostgresqlConfig(BaseModel):
     POSTGRESQL_DB: str
 
 
+@singleton
 class PostgresqlClient:
     """PostgresqlClient
     """

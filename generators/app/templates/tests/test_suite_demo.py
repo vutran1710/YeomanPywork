@@ -1,9 +1,8 @@
 from logzero import logger  # noqa
 import pytest  # noqa
+from utils import CONFIG
 
 
 def test_01_assert_config():
-    from utils import load_config
-    config = load_config()
     logger.warning("Success!")
-    assert config['LOG_LEVEL'] == 10
+    assert CONFIG['LOG_LEVEL'] == 10

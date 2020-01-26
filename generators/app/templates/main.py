@@ -2,12 +2,53 @@
 """Initialization fastapi application
 """
 from fastapi import FastAPI, Depends
-from middlewares import connections, internal_only, authenticate_user
-from apis import demo, login, user
+from middlewares import internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } _%>
+
+from apis import demo<%_ if (jwt) { _%>, login, user<%_ } _%>
+
+<%_ if (mysql || postgresql || redis || cassandra || rabbit) {_%>
+from utils import CONFIG
+<%_ } _%>
+<%_ if (mysql) {_%>
+from conn.mysql import MySqlClient
+<%_ } _%>
+<%_ if (postgresql) {_%>
+from conn.postgresql import PostgresqlClient
+<%_ } _%>
+<%_ if (redis || aioredis) {_%>
+from conn.redis import RedisClient
+<%_ } _%>
+<%_ if (cassandra) {_%>
+from conn.cassandra import CassandraClient
+<%_ } _%>
+<%_ if (rabbitmq) {_%>
+from conn.rabbit import RabbitClient
+<%_ } _%>
 
 app = FastAPI()
 
-app.middleware("http")(connections)
+
+@app.on_event("startup")
+async def init_conns():
+    """Init external connections & middlewares
+    """
+    conn = {}
+    <%_ if (mysql) {_%>
+    conn["mysql"] = MySqlClient(CONFIG)
+    <%_ } _%>
+    <%_ if (postgresql) {_%>
+    conn["postgresql"] = PostgresqlClient(CONFIG)
+    <%_ } _%>
+    <%_ if (redis || aioredis) {_%>
+    conn["redis"] = RedisClient(CONFIG)
+    <%_ } _%>
+    <%_ if (cassandra) {_%>
+    conn["cassandra"] = CassandraClient(CONFIG)
+    <%_ } _%>
+    <%_ if (rabbitmq) {_%>
+    conn["rabbitmq"] = RabbitClient(CONFIG)
+    <%_ } _%>
+
 
 app.include_router(
     demo.router,
@@ -19,6 +60,7 @@ app.include_router(
     }},
 )
 
+<%_ if (jwt) { _%>
 app.include_router(
     login.router,
     prefix="/authenticate",
@@ -37,11 +79,9 @@ app.include_router(
         "message": "Not found"
     }},
 )
+<%_ } _%>
 <%_ } else { _%>
 from logzero import logger
-from utils import load_config
-
-CONFIG = load_config()
 
 
 def main():

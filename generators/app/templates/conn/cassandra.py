@@ -13,6 +13,8 @@ from cassandra.policies import (
     ConstantReconnectionPolicy,
 )
 
+from decorator import singleton
+
 
 class CasConfig(BaseModel):
     CAS_HOST: str
@@ -21,6 +23,7 @@ class CasConfig(BaseModel):
     CAS_KEYSPACE: str
 
 
+@singleton
 class CassandraClient:
     def __init__(self, config: CasConfig):
         self.cfg = config
@@ -54,7 +57,7 @@ class CassandraClient:
     def insert(self, things):
         insert = "INSERT INTO some_table (colume_name) VALUES (%s)"    # noqa
         batch = BatchStatement()
-        
+
         for item in things:
             batch.add(SimpleStatement(insert), (item))
 

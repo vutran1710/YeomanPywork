@@ -42,6 +42,7 @@ module.exports = class extends Generator {
           'postgresql',
           'cassandra',
           'requests',
+          'httpx'
         ],
         default: [],
         store: true
@@ -55,6 +56,16 @@ module.exports = class extends Generator {
           // 'falcon',
           // 'starlette',
           // 'aiohttp',
+        ],
+        default: [],
+        store: true
+      },
+      {
+        type: 'checkbox',
+        name: 'extras',
+        message: 'What kind of extras you want to install?',
+        choices: [
+          'jwt',
         ],
         default: [],
         store: true
@@ -96,6 +107,7 @@ module.exports = class extends Generator {
       postgresql: false,
       cassandra: false,
       requests: false,
+      httpx: false,
     })
 
     const frameworks = this.props.frameworks.reduce((fw, item) => ({
@@ -105,9 +117,17 @@ module.exports = class extends Generator {
       fastapi: false,
     })
 
+    const extras = this.props.extras.reduce((extr, item) => ({
+      ...extr,
+      [item]: true
+    }), {
+      jwt: false
+    })
+
     const deps = {
       ...connections,
       ...frameworks,
+      ...extras
     }
 
     this.fs.copyTpl(
@@ -182,8 +202,16 @@ module.exports = class extends Generator {
     }
 
     if (frameworks.fastapi) {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('fastapi'),
+        this.destinationPath(''),
+        extras
+      )
+    }
+
+    if (extras.jwt) {
+      this.fs.copy(
+        this.templatePath('extras'),
         this.destinationPath(''),
       )
     }
