@@ -6,7 +6,7 @@ from middlewares import internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } 
 
 from apis import demo<%_ if (jwt) { _%>, login, user<%_ } _%>
 
-<%_ if (mysql || postgresql || redis || cassandra || rabbit) {_%>
+<%_ if (mysql || postgresql || redis || cassandra || rabbitmq) {_%>
 from utils import CONFIG
 <%_ } _%>
 <%_ if (mysql) {_%>
