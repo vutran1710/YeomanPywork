@@ -1,4 +1,5 @@
 <%_ if (jwt) { _%>
+from os import environ               
 import jwt
 <%_ } _%>
 from fastapi import Depends, HTTPException, Header<%_ if (jwt) { _%>, Security
@@ -6,7 +7,6 @@ from fastapi.security import OAuth2PasswordBearer
 <%_ } _%>
 from starlette.status import HTTP_403_FORBIDDEN
 from starlette.requests import Request
-from utils import CONFIG
 from logzero import logger
 <%_ if (jwt) { _%>
 from models import TokenPayload
@@ -14,7 +14,7 @@ from models import TokenPayload
 
 
 def internal_only(internal_header: str = Header(None)):
-    logger.info("ROLE = %s", internal_header)
+    logger.debug("ROLE = %s", internal_header)
     if internal_header != 'service':
         raise HTTPException(HTTP_403_FORBIDDEN, detail="Access denied")
 <%_ if (jwt) { _%>
@@ -32,7 +32,7 @@ def authenticate_user(
     take, decode a token string and return the token data
     """
     try:
-        payload = jwt.decode(token, CONFIG['SECRET_KEY'], algorithms=["HS256"])
+        payload = jwt.decode(token, environ['SECRET_KEY'], algorithms=["HS256"])
         token_data = TokenPayload(**payload)
         return token_data
     except jwt.PyJWTError:
