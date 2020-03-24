@@ -7,7 +7,7 @@ from middlewares import internal_only<%_ if (jwt) { _%>, authenticate_user<%_ } 
 from apis import demo<%_ if (jwt) { _%>, login, user<%_ } _%>
 
 <%_ if (mysql || postgresql || redis || cassandra || rabbitmq) {_%>
-from utils import CONFIG
+from utils import load_config
 <%_ } _%>
 <%_ if (mysql) {_%>
 from conn.mysql import MySqlClient
@@ -26,27 +26,27 @@ from conn.rabbit import RabbitClient
 <%_ } _%>
 
 app = FastAPI()
-
+config = load_config()
 
 @app.on_event("startup")
 async def init_conns():
     """Init external connections & middlewares
+    All clients will be initialized once only as Singletons
     """
-    conn = {}
     <%_ if (mysql) {_%>
-    conn["mysql"] = MySqlClient(CONFIG)
+    MySqlClient(config)
     <%_ } _%>
     <%_ if (postgresql) {_%>
-    conn["postgresql"] = PostgresqlClient(CONFIG)
+    PostgresqlClient(config)
     <%_ } _%>
     <%_ if (redis || aioredis) {_%>
-    conn["redis"] = RedisClient(CONFIG)
+    RedisClient(config)
     <%_ } _%>
     <%_ if (cassandra) {_%>
-    conn["cassandra"] = CassandraClient(CONFIG)
+    CassandraClient(config)
     <%_ } _%>
     <%_ if (rabbitmq) {_%>
-    conn["rabbitmq"] = RabbitClient(CONFIG)
+    RabbitClient(config)
     <%_ } _%>
 
 
