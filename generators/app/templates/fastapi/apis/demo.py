@@ -14,5 +14,5 @@ async def get_best_posts(limit: int):
     # NOTE: RedisClient is a singleton class,
     # will return the early-inited instance
     redis: RedisClient = RedisClient(...)
-    payload = await redis.do_some_redis_shit(limit)
+    payload = await redis.do_some_redis_stuff(limit)
     return payload
