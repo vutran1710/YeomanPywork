@@ -1,4 +1,6 @@
-from logzero import logger as log
+""" Cassandra Client for Python
+"""
+from logzero import logger
 from pydantic import BaseModel
 from cassandra.cluster import NoHostAvailable
 from cassandra.auth import PlainTextAuthProvider
@@ -13,23 +15,19 @@ from cassandra.policies import (
     ConstantReconnectionPolicy,
 )
 
-from decorator import singleton
+from helpers import Singleton
+from utils import AppConfig
 
 
-class CasConfig(BaseModel):
-    CAS_HOST: str
-    CAS_USER: str
-    CAS_PWD: str
-    CAS_KEYSPACE: str
-
-
-@singleton
-class CassandraClient:
-    def __init__(self, config: CasConfig):
+class CassandraClient(metaclass=Singleton):
+    """ CassandraClient Singleton Class
+    add moethod to query/update from/to Cassandra
+    """
+    def __init__(self, config: AppConfig):
         self.cfg = config
 
-        hosts = self.cfg["CAS_HOST"].split(",")
-        auth_provider = PlainTextAuthProvider(self.cfg["CAS_USER"], self.cfg["CAS_PWD"])
+        hosts = self.cfg.CAS_HOST.split(',')
+        auth_provider = PlainTextAuthProvider(self.cfg.CAS_USER, self.cfg.CAS_PWD)
         reconnection_policy = ConstantReconnectionPolicy(delay=2.5, max_attempts=None)
         balancing_policy = WhiteListRoundRobinPolicy(hosts)
 
@@ -43,15 +41,19 @@ class CassandraClient:
         self.connect()
         self.prepared_statements = {}
 
-    def connect(self):
+    def retry(self):
+        """ Retry to connect if fail
+        """
         # https://github.com/cqlengine/cqlengine/blob/master/cqlengine/connection.py#L71 # noqa
         try:
             return self.retry()
         except NoHostAvailable:
             return self.retry()
 
-    def retry(self):
-        self.session = self.cluster.connect(self.cfg["CAS_KEYSPACE"])
+    def connect(self):
+        """ Connect to Cassandra
+        """
+        self.session = self.cluster.connect(self.cfg.CAS_KEYSPACE)
         self.session.row_factory = dict_factory
 
     def insert(self, things):
