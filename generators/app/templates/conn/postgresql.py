@@ -1,33 +1,29 @@
+""" PostgreSQL Client
+"""
+from typing import List, Any
 from psycopg2 import connect
 from pydantic import BaseModel
-
-from decorator import singleton
-
-
-class PostgresqlConfig(BaseModel):
-    POSTGRESQL_HOST: str
-    POSTGRESQL_PORT: str
-    POSTGRESQL_USER: str
-    POSTGRESQL_PWD: str
-    POSTGRESQL_DB: str
+from helpers import Singleton
+from utils import AppConfig
 
 
-@singleton
-class PostgresqlClient:
+class PostgresqlClient(metaclass=Singleton):
     """PostgresqlClient
     """
-    def __init__(self, config: PostgresqlConfig):
+    def __init__(self, config: AppConfig):
         conn = connect(
-            host=config['POSTGRESQL_HOST'],
-            port=config['POSTGRESQL_PORT'],
-            user=config['POSTGRESQL_USER'],
-            password=config['POSTGRESQL_PWD'],
-            database=config['POSTGRESQL_DB']
+            host=config.POSTGRESQL_HOST,
+            port=config.POSTGRESQL_PORT,
+            user=config.POSTGRESQL_USER,
+            password=config.POSTGRESQL_PWD,
+            database=config.POSTGRESQL_DB,
         )
 
         self.conn = conn
 
-    def query_something(self, limit: int):
+    def query_something(self, limit: int) -> List[Any]:
+        """ Query anything
+        """
         with self.conn.cursor() as cursor:
             q = """
             SELECT post_id FROM some_table ORDER BY created_at DESC LIMIT %s
