@@ -12,7 +12,7 @@ yapf = "*"
 jedi = "*"
 
 [packages]
-nlogzero = "*"
+logzero = "*"
 pydantic = "*"
 <%_ if (rabbitmq) { _%>
 pika = "*"
