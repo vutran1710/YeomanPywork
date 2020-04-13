@@ -5,6 +5,7 @@ import jwt
 from fastapi import Depends, HTTPException, Header<%_ if (jwt) { _%>, Security
 from fastapi.security import OAuth2PasswordBearer
 <%_ } _%>
+
 from starlette.status import HTTP_403_FORBIDDEN
 from starlette.requests import Request
 from logzero import logger

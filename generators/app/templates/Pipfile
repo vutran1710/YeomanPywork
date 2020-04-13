@@ -45,6 +45,7 @@ pyjwt = "*"
 <%_ if (httpx) { _%>
 httpx = "*"
 <%_ } _%>
+
 [requires]
 python_version = "3.7"
 
@@ -53,7 +54,7 @@ lint = "pylint **/*.py --rcfile=setup.cfg"
 test = "pytest -s tests"
 <%_ if (fastapi) { _%>
 dev = "uvicorn main:app --reload"
-app = "uvicorn main:app --host 0.0.0.0 --port 5000"
+app = "uvicorn main:app --host 0.0.0.0 --port 5000 --workers 4 --log-level warning"
 <%_ } else { _%>
 app = "python main.py"
 <%_ } _%>
